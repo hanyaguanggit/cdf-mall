@@ -5,13 +5,11 @@ spring:
   application:
     name: consul-server
   cloud:
-#    config:
-#      server:
-#        git:
-#          uri: https://github.com/hanyaguanggit/consul-server.git
     config:
       server:
-        bootstrap: true
+        git:
+          uri: https://github.com/hanyaguanggit/cdf-mall.git
+
     consul:
       host: localhost
       port: 8500
