@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.cdf.test.db1.mapper","com.cdf.test.db2.mapper"})
+@MapperScan({"com.cdf.mall.db1.mapper","com.cdf.mall.db2.mapper"})
 public class MyBatisConfig {
 
 }
