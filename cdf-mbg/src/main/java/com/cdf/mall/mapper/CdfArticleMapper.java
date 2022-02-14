@@ -1,13 +1,14 @@
-package com.cdf.mall.service;
-
+package com.cdf.mall.mapper;
 
 import com.cdf.mall.model.CdfArticle;
 import com.cdf.mall.model.CdfArticleExample;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
-public interface ArticelService {
+@Repository
+public interface CdfArticleMapper {
+    long countByExample(CdfArticleExample example);
 
     int deleteByExample(CdfArticleExample example);
 
@@ -26,4 +27,6 @@ public interface ArticelService {
     int updateByExample(@Param("record") CdfArticle record, @Param("example") CdfArticleExample example);
 
     int updateByPrimaryKeySelective(CdfArticle record);
+
+    int updateByPrimaryKey(CdfArticle record);
 }

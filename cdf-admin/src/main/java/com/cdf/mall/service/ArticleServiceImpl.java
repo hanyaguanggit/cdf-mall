@@ -1,8 +1,8 @@
 package com.cdf.mall.service;
 
-import com.cdf.test.db1.mapper.CdfArticleMapper;
-import com.cdf.test.db1.model.CdfArticle;
-import com.cdf.test.db1.model.CdfArticleExample;
+import com.cdf.mall.mapper.CdfArticleMapper;
+import com.cdf.mall.model.CdfArticle;
+import com.cdf.mall.model.CdfArticleExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

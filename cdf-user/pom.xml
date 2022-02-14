@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.cdf.mall</groupId>
     <artifactId>cdf-user</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <name>cdf-user</name>
     <packaging>jar</packaging>
     <description>cdf-user</description>
@@ -34,10 +34,10 @@
             <version>2.8.5</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
+        </dependency>-->
 
 
         <dependency>
