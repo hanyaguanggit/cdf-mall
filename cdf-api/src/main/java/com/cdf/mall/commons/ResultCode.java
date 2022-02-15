@@ -1,4 +1,4 @@
-package com.cdf.mall.common;
+package com.cdf.mall.commons;
 
 
 /**

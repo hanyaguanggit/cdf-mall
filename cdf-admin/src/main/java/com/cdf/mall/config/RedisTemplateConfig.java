@@ -1,7 +1,7 @@
 package com.cdf.mall.config;
 
-import com.cdf.mall.common.util.StringUtils;
-import com.github.pagehelper.util.StringUtil;
+import com.cdf.mall.util.RedisOrderOpsUtil;
+import com.cdf.mall.util.RedisUserOpsUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -94,4 +94,12 @@ public class RedisTemplateConfig {
                 connectionFactory(userHost, Integer.parseInt(userPort), userPassword, MAX_IDLE, MAX_TOTAL, MAX_WAIT_MILLIS, 0));
         return template;
     }
+
+    @Bean
+    public RedisOrderOpsUtil redisOrderOpsUtil() {
+        return new RedisOrderOpsUtil();
+    }
+
+    @Bean
+    public RedisUserOpsUtil redisUserOpsUtil(){ return new RedisUserOpsUtil();}
 }

@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.cdf.mall</groupId>
     <artifactId>cdf-api</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>cdf-api</name>
     <description>cdf-api</description>
@@ -38,6 +38,13 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -64,7 +71,7 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
+       <!-- <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -80,7 +87,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.cdf.mall.cdfapi.CdfApiApplication</mainClass>
+                    <mainClass>com.cdf.mall.CdfApiApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -90,6 +97,12 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+        </plugins>-->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
