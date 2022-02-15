@@ -42,6 +42,7 @@ public class RedisTemplateConfig {
     @Value("${spring.redis.user.password}")
     private String userPassword;
 
+
     private static final int MAX_IDLE = 200; //最大空闲连接数
     private static final int MAX_TOTAL = 1024; //最大连接数
     private static final long MAX_WAIT_MILLIS = 10000; //建立连接最长等待时间
@@ -88,7 +89,7 @@ public class RedisTemplateConfig {
 
     //------------------------------------
     @Bean(name = "redisUserTemplate")
-    public StringRedisTemplate userUserTemplate() {
+    public StringRedisTemplate redisUserTemplate() {
         StringRedisTemplate template = new StringRedisTemplate();
         template.setConnectionFactory(
                 connectionFactory(userHost, Integer.parseInt(userPort), userPassword, MAX_IDLE, MAX_TOTAL, MAX_WAIT_MILLIS, 0));

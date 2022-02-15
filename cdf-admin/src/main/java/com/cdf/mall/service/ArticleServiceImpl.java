@@ -15,7 +15,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
-public class ArticleServiceImpl implements ArticelService {
+public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private CdfArticleMapper articleMapper;

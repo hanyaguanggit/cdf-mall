@@ -14,9 +14,10 @@ public class SaveArticleReqVo {
     @NotBlank(message = "文章标题不能为空")
     private String title;
 
+    //文章内容
     private String content;
 
-    @NotNull(message = "文章作者不能为空")
+    //文章作者
     private Integer userId;
 
     public String getTitle() {

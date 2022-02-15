@@ -9,10 +9,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 public class CdfAdminApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(CdfAdminApplication.class, args);
     }
-
 
 }
