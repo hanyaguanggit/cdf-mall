@@ -55,7 +55,6 @@ public class MasterDataSourceConfig {
         dataSource.setUrl(url);
         dataSource.setUsername(user);
         dataSource.setPassword(password);
-        //DataSourceBuilder.create().build();
         return  dataSource;
     }
 
