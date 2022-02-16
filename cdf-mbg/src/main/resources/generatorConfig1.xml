@@ -30,11 +30,11 @@
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.cdf.mall.model" targetProject="cdf-mbg\src\main\java"/>
+        <javaModelGenerator targetPackage="com.cdf.mall.model.master" targetProject="cdf-mbg\src\main\java"/>
 
-        <sqlMapGenerator targetPackage="com.cdf.mall.mapper" targetProject="cdf-mbg\src\main\resources"/>
+        <sqlMapGenerator targetPackage="com.cdf.mall.mapper.master" targetProject="cdf-mbg\src\main\resources"/>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cdf.mall.mapper"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cdf.mall.mapper.master"
                              targetProject="cdf-mbg\src\main\java"/>
         <!--生成全部表tableName设为%,指定-->
         <table tableName="cdf_article" enableCountByExample="true" enableUpdateByExample="true"

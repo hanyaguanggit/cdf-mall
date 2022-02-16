@@ -1,4 +1,4 @@
-package com.cdf.mall.model;
+package com.cdf.mall.model.second;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;

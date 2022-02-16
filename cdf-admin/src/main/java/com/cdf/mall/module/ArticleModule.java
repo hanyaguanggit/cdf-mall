@@ -3,10 +3,10 @@ package com.cdf.mall.module;
 import com.cdf.mall.commons.CommonResult;
 import com.cdf.mall.commons.ResultCode;
 import com.cdf.mall.dto.SaveArticleReqVo;
-import com.cdf.mall.model.CdfArticle;
-import com.cdf.mall.model.CdfUser;
-import com.cdf.mall.service.ArticleService;
-import com.cdf.mall.service.UserService;
+import com.cdf.mall.model.master.CdfArticle;
+import com.cdf.mall.model.second.CdfUser;
+import com.cdf.mall.service.master.ArticleService;
+import com.cdf.mall.service.second.UserService;
 import com.cdf.mall.util.RedisOrderOpsUtil;
 import com.cdf.mall.util.RedisUserOpsUtil;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description TODO
+ * @Description 文章业务类
  * @Author hanyaguang
  * @Date 2022/2/14 17:44
  * @Version 1.0
@@ -57,13 +57,30 @@ public class ArticleModule {
             logger.info("向6380端口redis添加成功。");
         }
 
-        //给user添加数据
-        CdfUser user = new CdfUser();
-        user.setUsername("hanyaguang");
-        int add = userService.insert(user);
+        createUser();
         result.setCode(ResultCode.SUCCESS.getCode());
         result.setMessage("保存成功");
         result.setData(article.getId());
+        return result;
+    }
+
+    /**
+     * description: 添加用户
+     * @Param:
+     * @Return:
+     * @Author: hanyaguang
+     * @Date: 2022/2/16 16:49
+     */
+
+    public CommonResult createUser(){
+        CommonResult result = new CommonResult();
+        //给user添加数据
+        CdfUser user = new CdfUser();
+        user.setUsername("hanyaguang2");
+        int add = userService.insert(user);
+        result.setCode(ResultCode.SUCCESS.getCode());
+        result.setMessage("保存成功");
+        result.setData(user.getId());
         return result;
     }
 }

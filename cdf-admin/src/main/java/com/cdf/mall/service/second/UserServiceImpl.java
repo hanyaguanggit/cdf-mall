@@ -1,8 +1,8 @@
-package com.cdf.mall.service;
+package com.cdf.mall.service.second;
 
-import com.cdf.mall.mapper.CdfUserMapper;
-import com.cdf.mall.model.CdfUser;
-import com.cdf.mall.model.CdfUserExample;
+import com.cdf.mall.mapper.second.CdfUserMapper;
+import com.cdf.mall.model.second.CdfUser;
+import com.cdf.mall.model.second.CdfUserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int insert(CdfUser record) {
+
         return cdfUserMapper.insert(record);
     }
 

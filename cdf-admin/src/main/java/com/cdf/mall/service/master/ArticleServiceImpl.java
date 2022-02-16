@@ -1,9 +1,10 @@
-package com.cdf.mall.service;
+package com.cdf.mall.service.master;
 
-import com.cdf.mall.mapper.CdfArticleMapper;
-import com.cdf.mall.model.CdfArticle;
-import com.cdf.mall.model.CdfArticleExample;
+import com.cdf.mall.mapper.master.CdfArticleMapper;
+import com.cdf.mall.model.master.CdfArticle;
+import com.cdf.mall.model.master.CdfArticleExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,6 @@ import java.util.List;
  */
 @Service
 public class ArticleServiceImpl implements ArticleService {
-
     @Autowired
     private CdfArticleMapper articleMapper;
 
@@ -64,4 +64,5 @@ public class ArticleServiceImpl implements ArticleService {
     public int updateByPrimaryKeySelective(CdfArticle record) {
         return articleMapper.updateByPrimaryKeySelective(record);
     }
+
 }

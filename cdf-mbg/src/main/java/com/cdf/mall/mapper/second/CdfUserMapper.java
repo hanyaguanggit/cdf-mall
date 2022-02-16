@@ -1,12 +1,20 @@
-package com.cdf.mall.service;
+package com.cdf.mall.mapper.second;
 
-import com.cdf.mall.model.CdfUser;
-import com.cdf.mall.model.CdfUserExample;
-import org.apache.ibatis.annotations.Param;
-
+import com.cdf.mall.model.second.CdfUser;
+import com.cdf.mall.model.second.CdfUserExample;
 import java.util.List;
 
-public interface UserService {
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+public interface CdfUserMapper {
+    long countByExample(CdfUserExample example);
+
+    int deleteByExample(CdfUserExample example);
+
+    int deleteByPrimaryKey(Integer id);
 
     int insert(CdfUser record);
 

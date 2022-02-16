@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cdf.mall.mapper.CdfArticleMapper">
-  <resultMap id="BaseResultMap" type="com.cdf.mall.model.CdfArticle">
+<mapper namespace="com.cdf.mall.mapper.master.CdfArticleMapper">
+  <resultMap id="BaseResultMap" type="com.cdf.mall.model.master.CdfArticle">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, title, content, userId
   </sql>
-  <select id="selectByExample" parameterType="com.cdf.mall.model.CdfArticleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cdf.mall.model.master.CdfArticleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -93,19 +93,19 @@
     delete from cdf_article
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cdf.mall.model.CdfArticleExample">
+  <delete id="deleteByExample" parameterType="com.cdf.mall.model.master.CdfArticleExample">
     delete from cdf_article
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cdf.mall.model.CdfArticle" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cdf.mall.model.master.CdfArticle" useGeneratedKeys="true">
     insert into cdf_article (title, content, userId
       )
     values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cdf.mall.model.CdfArticle" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cdf.mall.model.master.CdfArticle" useGeneratedKeys="true">
     insert into cdf_article
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="title != null">
@@ -130,7 +130,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cdf.mall.model.CdfArticleExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.cdf.mall.model.master.CdfArticleExample" resultType="java.lang.Long">
     select count(*) from cdf_article
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -166,7 +166,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cdf.mall.model.CdfArticle">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdf.mall.model.master.CdfArticle">
     update cdf_article
     <set>
       <if test="title != null">
@@ -181,7 +181,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cdf.mall.model.CdfArticle">
+  <update id="updateByPrimaryKey" parameterType="com.cdf.mall.model.master.CdfArticle">
     update cdf_article
     set title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
