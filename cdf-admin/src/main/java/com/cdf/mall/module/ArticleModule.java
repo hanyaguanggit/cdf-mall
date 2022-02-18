@@ -16,6 +16,7 @@ import com.cdf.mall.service.second.UserService;
 import com.cdf.mall.util.PrimaryMongoUtil;
 import com.cdf.mall.util.RedisOrderOpsUtil;
 import com.cdf.mall.util.RedisUserOpsUtil;
+import com.cdf.mall.util.SecondaryMongoUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.omg.CORBA.COMM_FAILURE;
 import org.slf4j.Logger;
@@ -105,6 +106,13 @@ public class ArticleModule {
         return result;
     }
 
+    /**
+     * description: 查询文章列表
+     * @Param:
+     * @Return:
+     * @Author: hanyaguang
+     * @Date: 2022/2/19 1:39
+     */
     public CommonResult selectArtileList(ArticleListReqVo request){
         CommonResult result = new CommonResult();
         List<ArticleRespVo> articleRespVoList = new ArrayList<>();
@@ -158,7 +166,8 @@ public class ArticleModule {
         csRegion.setName("广州");
         csRegion.setParentId("111");
         csRegion.setStatus("1");
-        PrimaryMongoUtil.save(csRegion);
+       // PrimaryMongoUtil.save(csRegion);//主库
+        SecondaryMongoUtil.save(csRegion);//从库
         return result;
     }
 }

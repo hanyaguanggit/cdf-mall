@@ -1,30 +1,18 @@
 package com.cdf.mall.config;
-
-import com.mongodb.ClientSessionOptions;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.*;
-import com.mongodb.connection.ClusterDescription;
 import com.mongodb.connection.ConnectionPoolSettings;
 import org.apache.commons.lang3.StringUtils;
-import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.support.PersistenceExceptionTranslator;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.*;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +23,6 @@ import java.util.concurrent.TimeUnit;
  * @Version 1.0
  */
 @Configuration
-//@EnableMongoRepositories(basePackages = "com.cdf.mall.mongo.primary",mongoTemplateRef = "primaryMongoTemplate")
 public class PrimaryMongoConfig {
     @RefreshScope
     @Bean
@@ -57,14 +44,11 @@ public class PrimaryMongoConfig {
     public SimpleMongoClientDatabaseFactory simpleMongoClientDatabaseFactory(MongoProperties properties) {
         MongoClientSettings settings;
         List<ServerAddress> serverAddressList = new ArrayList<>();
-        System.out.println("properties:"+properties.toString());
+        String uri = properties.getUri();
+        String host = uri.substring(0, uri.lastIndexOf(":"));
+      	String port = uri.substring(uri.lastIndexOf(":") + 1);
 
-        String host = properties.getUri().substring(0, properties.getUri().lastIndexOf(":"));
-        String port = properties.getUri().substring(properties.getUri().lastIndexOf(":") + 1);
-        int portint = Integer.parseInt(port);
-       // System.out.println("port="+portint);
-        serverAddressList.add(new ServerAddress(host, portint));
-
+        serverAddressList.add(new ServerAddress(host, Integer.parseInt(port)));
         ConnectionPoolSettings poolSetting = ConnectionPoolSettings.builder().
                 maxWaitTime(30000, TimeUnit.MILLISECONDS).build();
 
@@ -77,6 +61,7 @@ public class PrimaryMongoConfig {
                     properties.getAuthenticationDatabase() != null ? properties
                             .getAuthenticationDatabase() : properties.getDatabase(),
                     properties.getPassword());
+            //MongoCredential mongoCredential = MongoCredential.createScramSha1Credential("root","test","123456".toCharArray());
             settings = MongoClientSettings.builder()
                     .credential(mongoCredential)
                     .applyToConnectionPoolSettings(builder -> builder.applySettings(poolSetting))
@@ -86,8 +71,10 @@ public class PrimaryMongoConfig {
                     .applyToClusterSettings(builder -> builder.hosts(serverAddressList)).build();
         }
         mongoClient = MongoClients.create(settings);
+
         // 创建MongoDbFactory
         SimpleMongoClientDatabaseFactory mongoFactory = new SimpleMongoClientDatabaseFactory(mongoClient, properties.getDatabase());
         return mongoFactory;
     }
+
 }
