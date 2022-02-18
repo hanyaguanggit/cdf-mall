@@ -1,4 +1,4 @@
-package com.cdf.mall.dto;
+package com.cdf.mall.dto.req;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

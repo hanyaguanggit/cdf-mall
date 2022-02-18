@@ -3,6 +3,7 @@ package com.cdf.mall.service.master;
 import com.cdf.mall.mapper.master.CdfArticleMapper;
 import com.cdf.mall.model.master.CdfArticle;
 import com.cdf.mall.model.master.CdfArticleExample;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<CdfArticle> selectByExample(CdfArticleExample example) {
+    public List<CdfArticle> selectByExample(CdfArticleExample example,Integer pageNum,Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
         return articleMapper.selectByExample(example);
     }
 

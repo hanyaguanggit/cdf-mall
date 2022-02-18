@@ -42,7 +42,7 @@ public class MasterDataSourceConfig {
     @Value("${spring.datasource.dynamic.master.password}")
     private String password;
 
-    @Value("${spring.datasource.hikari.driver-class-name}")
+    @Value("${spring.datasource.dynamic.master.driver-class-name}")
     private String driverClass;
 
 

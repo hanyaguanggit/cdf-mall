@@ -17,7 +17,14 @@ public interface ArticleService {
 
     int insertSelective(CdfArticle record);
 
-    List<CdfArticle> selectByExample(CdfArticleExample example);
+    /**
+     * 分页查询文章列表
+     * @param example
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<CdfArticle> selectByExample(CdfArticleExample example,Integer pageNum ,Integer pageSize);
 
     CdfArticle selectByPrimaryKey(Integer id);
 

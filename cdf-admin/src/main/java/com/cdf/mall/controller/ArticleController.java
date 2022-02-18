@@ -2,8 +2,10 @@ package com.cdf.mall.controller;
 
 import com.cdf.mall.commons.CommonResult;
 import com.cdf.mall.commons.ResultCode;
-import com.cdf.mall.dto.SaveArticleReqVo;
+import com.cdf.mall.dto.req.ArticleListReqVo;
+import com.cdf.mall.dto.req.SaveArticleReqVo;
 import com.cdf.mall.module.ArticleModule;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,43 @@ public class ArticleController {
         try {
             request.setUserId(userId);
             response = articleModule.createArticle(request);
+        } catch (Exception e ) {
+            return CommonResult.failed(ResultCode.FAILED.getCode(),e.getMessage());
+        }
+        return response;
+    }
+
+
+    /**
+     * hyg
+     * 后台--条件查询文章列表
+     * @param request
+     * @return
+     */
+    @Schema(description = "条件查询文章列表")
+    @PostMapping(value = "/list", consumes = "application/json")
+    public CommonResult selectArticleList(@RequestBody ArticleListReqVo request, Errors errors) {
+        CommonResult response ;
+        try {
+            response = articleModule.selectArtileList(request);
+        } catch (Exception e ) {
+            return CommonResult.failed(ResultCode.FAILED.getCode(),e.getMessage());
+        }
+        return response;
+    }
+
+    /**
+     * hyg
+     *
+     * @param
+     * @return
+     */
+    @Schema(description = "保存地区")
+    @PostMapping(value = "/add/region")
+    public CommonResult addRegion() {
+        CommonResult response ;
+        try {
+            response = articleModule.insertRegionToMongo();
         } catch (Exception e ) {
             return CommonResult.failed(ResultCode.FAILED.getCode(),e.getMessage());
         }
