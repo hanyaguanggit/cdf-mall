@@ -45,6 +45,7 @@
 
         <pagehelper-starter.version>1.2.10</pagehelper-starter.version>
         <pagehelper.version>5.1.8</pagehelper.version>
+        <google-guava.version>18.0</google-guava.version>
 
     </properties>
 
@@ -84,10 +85,10 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.72</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>aliyun-redis-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>aliyun-redis-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -180,11 +181,17 @@
             <type>jar</type>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.data</groupId>-->
+<!--            <artifactId>spring-data-redis</artifactId>-->
+<!--        </dependency>-->
         <!--jedis结束-->
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -258,18 +265,12 @@
                  <version>${cdf-user.version}</version>
              </dependency>
 
-            <!--mall 中的 admin模块-->
-           <!-- <dependency>
-                 <groupId>com.cdf</groupId>
-                 <artifactId>cdf-admin</artifactId>
-                 <version>${cdf-admin.version}</version>
-            </dependency>-->
-
-            <!--<dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-            </dependency>-->
-
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <!--<version>18.0</version>-->
+                <version>${google-guava.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
