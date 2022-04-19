@@ -1,5 +1,6 @@
 package com.cdf.mall.controller;
 
+import com.cdf.mall.annontaion.SystemLog;
 import com.cdf.mall.commons.CommonResult;
 import com.cdf.mall.commons.ResultCode;
 import com.cdf.mall.dto.req.ArticleListReqVo;
@@ -37,6 +38,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping(value = "/save", consumes = "application/json")
+    @SystemLog(module="文章模块",methods="保存文章",serviceClass = "ArticleServiceImpl",queryMethod="selectByPrimaryKey",parameterType="Integer")
     public CommonResult saveArticle(@Valid @RequestBody SaveArticleReqVo request, @RequestHeader("userId")Integer userId, Errors errors) {
         CommonResult response ;
         try {

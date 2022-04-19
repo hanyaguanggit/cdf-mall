@@ -73,7 +73,7 @@ public class ArticleModule {
         String articleKey = sb.append(article.getId()).toString();
        boolean setcache1 =  redisOrderTemplate.set(articleKey,article.toString());
        if(setcache1){
-           logger.info("向6379端口redis添加成功。");
+           logger.info("向6380端口redis添加成功。");
        }
         boolean setcache2 = redisUserTemplate.set(articleKey,article.toString());
         if(setcache2){

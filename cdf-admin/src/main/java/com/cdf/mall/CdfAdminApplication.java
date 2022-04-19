@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 //禁用mongodb的自动配置
 //@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
+//禁用redis自动配置
 @SpringBootApplication(exclude = {RedisAutoConfiguration.class})
+//@SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableTransactionManagement

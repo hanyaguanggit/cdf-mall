@@ -2,6 +2,8 @@ package com.cdf.mall.demo.proxy.dynamic;
 
 import com.cdf.mall.demo.proxy.staticdemo.IPserson;
 import com.cdf.mall.demo.proxy.staticdemo.Person;
+import org.springframework.util.ReflectionUtils;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
