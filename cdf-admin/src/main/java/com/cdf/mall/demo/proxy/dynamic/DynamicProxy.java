@@ -48,5 +48,6 @@ public class DynamicProxy implements InvocationHandler {
         ClassLoader classLoader2 = pserson.getClass().getClassLoader();
         IPserson iPserson = (IPserson) Proxy.newProxyInstance(classLoader2, new  Class[]{IPserson.class}, proxy2);
         iPserson.read();
+
     }
 }
