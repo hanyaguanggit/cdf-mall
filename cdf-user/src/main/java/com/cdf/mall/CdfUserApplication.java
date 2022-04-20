@@ -13,5 +13,4 @@ public class CdfUserApplication {
     public static void main(String[] args) {
         SpringApplication.run(CdfUserApplication.class, args);
     }
-
 }

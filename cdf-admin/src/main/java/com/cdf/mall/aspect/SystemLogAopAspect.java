@@ -5,16 +5,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.cdf.mall.annontaion.SystemLog;
 import com.cdf.mall.dto.SystemLogDto;
 import com.cdf.mall.util.DateUtil;
+import com.cdf.mall.util.LogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -42,7 +46,6 @@ public class SystemLogAopAspect {
 
     @Pointcut("execution(public * com.cdf.mall.controller.*.*(..))")
     public void controllerAspect() {
-        System.out.println("----------------------------point cut start");
     }
 
     @SuppressWarnings({ "rawtypes", "unused" })
@@ -86,7 +89,6 @@ public class SystemLogAopAspect {
                 systemLogDto.setModule(systemlog.module());
                 systemLogDto.setOperateType(systemlog.methods());//操作类型
 
-
                 //请求查询操作前数据的spring bean
                 String serviceClass = systemlog.serviceClass();
                 //请求查询数据的方法
@@ -98,8 +100,17 @@ public class SystemLogAopAspect {
 
                 //操作前的对象信息
                 Object data = getOperateBeforeData(paramType, serviceClass, queryMethod, "1");
-                JSONObject json = (JSONObject) JSON.toJSON(data);
-                log.info("操作前的对象信息：{}",json);
+                String jsonStr = JSON.toJSONString(data);
+                log.info("操作前的对象信息：{}",jsonStr);
+                systemLogDto.setBeforeParams(jsonStr);
+                //执行业务方法
+                object = pjp.proceed();
+
+                Object dataAfter = getOperateBeforeData(paramType, serviceClass, queryMethod, "1");
+                LogUtil  logUtil = new LogUtil();
+                String compareStr = logUtil.compareObject(data,dataAfter);
+                systemLogDto.setResultMsg(compareStr);
+                log.info("系统日志记录信息->systemLogDto{}",systemLogDto);
             }else {
                 //没有包含注解
                 object = pjp.proceed();
@@ -115,34 +126,32 @@ public class SystemLogAopAspect {
     /**
      *
      * 功能描述: <br>
-     * 〈功能详细描述〉
-     *
+     * 〈功能详细描述〉: 使用反射工具类查询操作之前的对象
      * @param paramType:参数类型
      * @param serviceClass：bean名称
      * @param queryMethod：查询method
      * @param value：查询id的value
-     * @return
-     * @see [相关类/方法](可选)
-     * @since [产品/模块版本](可选)
+     * @return object
+     * {@link ReflectionUtils}
      */
     public Object getOperateBeforeData(String paramType, String serviceClass, String queryMethod, String value) {
         Object obj = new Object();
         //在此处解析请求的参数类型，根据id查询数据，id类型有四种：int，Integer,long,Long
         if (paramType.equals("int")) {
             int id = Integer.parseInt(value);
-            Method mh = ReflectionUtils.findMethod(SpringContextUtil.getBean(serviceClass).getClass(), queryMethod, Long.class);
+            Method mh = ReflectionUtils.findMethod(SpringContextUtil.getBean(serviceClass).getClass(), queryMethod, int.class);
             //用spring bean获取操作前的参数,此处需要注意：传入的id类型与bean里面的参数类型需要保持一致
             obj = ReflectionUtils.invokeMethod(mh, SpringContextUtil.getBean(serviceClass), id);
 
         } else if (paramType.equals("Integer")) {
             Integer id = Integer.valueOf(value);
-            Method mh = ReflectionUtils.findMethod(SpringContextUtil.getBean(serviceClass).getClass(), queryMethod, Long.class);
+            Method mh = ReflectionUtils.findMethod(SpringContextUtil.getBean(serviceClass).getClass(), queryMethod, Integer.class);
             //用spring bean获取操作前的参数,此处需要注意：传入的id类型与bean里面的参数类型需要保持一致
             obj = ReflectionUtils.invokeMethod(mh, SpringContextUtil.getBean(serviceClass), id);
 
         } else if (paramType.equals("long")) {
             long id = Long.parseLong(value);
-            Method mh = ReflectionUtils.findMethod(SpringContextUtil.getBean(serviceClass).getClass(), queryMethod, Long.class);
+            Method mh = ReflectionUtils.findMethod(SpringContextUtil.getBean(serviceClass).getClass(), queryMethod, long.class);
             //用spring bean获取操作前的参数,此处需要注意：传入的id类型与bean里面的参数类型需要保持一致
             obj = ReflectionUtils.invokeMethod(mh, SpringContextUtil.getBean(serviceClass), id);
 
@@ -156,7 +165,26 @@ public class SystemLogAopAspect {
     }
 
 
+    /**
+     * 往数据库写系统日志
+     * @param joinPoint
+     * @return
+     */
+    @After("controllerAspect()")
+    public void writeLog(JoinPoint joinPoint){
+        try {
+            this.operatLogWriter(joinPoint);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * 往数据库写系统日志
+     * @param joinPoint
+     */
+    private void operatLogWriter(JoinPoint joinPoint) {
 
+    }
 
 }

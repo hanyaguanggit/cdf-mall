@@ -38,12 +38,31 @@ public class ArticleController {
      * @return
      */
     @PostMapping(value = "/save", consumes = "application/json")
-    @SystemLog(module="文章模块",methods="保存文章",serviceClass = "ArticleServiceImpl",queryMethod="selectByPrimaryKey",parameterType="Integer")
+    @SystemLog(module="文章模块",methods="保存文章",serviceClass = "articleServiceImpl",queryMethod="selectByPrimaryKey",parameterType="Integer")
     public CommonResult saveArticle(@Valid @RequestBody SaveArticleReqVo request, @RequestHeader("userId")Integer userId, Errors errors) {
         CommonResult response ;
         try {
             request.setUserId(userId);
             response = articleModule.createArticle(request);
+        } catch (Exception e ) {
+            return CommonResult.failed(ResultCode.FAILED.getCode(),e.getMessage());
+        }
+        return response;
+    }
+
+
+    /**
+     * hyg
+     * 后台--修改文章标题
+     * @param
+     * @return
+     */
+    @PostMapping(value = "/update")
+    @SystemLog(module="文章模块",methods="修改文章",serviceClass = "articleServiceImpl",queryMethod="selectByPrimaryKey",parameterType="Integer")
+    public CommonResult updateArticle( @RequestParam("id")Integer id, @RequestParam("title") String title) {
+        CommonResult response ;
+        try {
+            response = articleModule.updateArticle(id,title);
         } catch (Exception e ) {
             return CommonResult.failed(ResultCode.FAILED.getCode(),e.getMessage());
         }

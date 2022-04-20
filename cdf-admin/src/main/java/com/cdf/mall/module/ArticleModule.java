@@ -1,6 +1,5 @@
 package com.cdf.mall.module;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cdf.mall.commons.CommonResult;
 import com.cdf.mall.commons.ResultCode;
 import com.cdf.mall.dto.mongo.primary.CsRegion;
@@ -13,21 +12,17 @@ import com.cdf.mall.model.master.CdfArticleExample;
 import com.cdf.mall.model.second.CdfUser;
 import com.cdf.mall.service.master.ArticleService;
 import com.cdf.mall.service.second.UserService;
-import com.cdf.mall.util.PrimaryMongoUtil;
 import com.cdf.mall.util.RedisOrderOpsUtil;
 import com.cdf.mall.util.RedisUserOpsUtil;
 import com.cdf.mall.util.SecondaryMongoUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.omg.CORBA.COMM_FAILURE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,6 +147,27 @@ public class ArticleModule {
     }
 
 
+    /**
+     * 修改文章标题
+     * @return
+     */
+    public CommonResult updateArticle(Integer id,String title){
+        CommonResult result = new CommonResult();
+
+        //查询文章
+        CdfArticle article = articleService.selectByPrimaryKey(id);
+        article.setTitle(title);
+        int update = articleService.updateByPrimaryKeySelective(article);
+        if(update > 0){
+            result.setData(article.getId());
+            result.setCode(ResultCode.SUCCESS.getCode());
+            result.setMessage(ResultCode.SUCCESS.getMessage());
+        }else {
+            result.setCode(ResultCode.FAILED.getCode());
+            result.setMessage(ResultCode.FAILED.getMessage());
+        }
+        return result;
+    }
     /**
      * description: 保存mongodb
      * @Param:

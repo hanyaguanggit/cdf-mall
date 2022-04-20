@@ -4,7 +4,6 @@ import com.cdf.mall.commons.CommonResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * description: 用户模块

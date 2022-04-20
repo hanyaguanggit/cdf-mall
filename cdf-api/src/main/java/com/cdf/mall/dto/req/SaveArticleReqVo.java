@@ -1,7 +1,6 @@
 package com.cdf.mall.dto.req;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * @Description 保存文章请求体

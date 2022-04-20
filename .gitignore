@@ -1,5 +1,4 @@
 *.iws
-*.iml
 *.ipr
 target/
 .settings
@@ -9,5 +8,4 @@ target/
 *.class
 *svn/
 .idea/
-
 .jpeg
