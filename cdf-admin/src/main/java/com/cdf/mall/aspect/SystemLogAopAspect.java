@@ -36,7 +36,7 @@ import java.util.Date;
  * @Version 1.0
  */
 @Aspect
-@Component("SystemLogAopAspect")
+@Component
 @Slf4j
 public class SystemLogAopAspect {
 
