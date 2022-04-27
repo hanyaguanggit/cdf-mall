@@ -95,9 +95,14 @@ public class ArticleModule {
         CdfUser user = new CdfUser();
         user.setUsername("hanyaguang2");
         int add = userService.insert(user);
-        result.setCode(ResultCode.SUCCESS.getCode());
-        result.setMessage("保存成功");
-        result.setData(user.getId());
+        if(add > 0){
+            result.setCode(ResultCode.SUCCESS.getCode());
+            result.setMessage("保存成功");
+            result.setData(user.getId());
+        }else {
+            result.setCode(ResultCode.FAILED.getCode());
+            result.setMessage("保存失败");
+        }
         return result;
     }
 

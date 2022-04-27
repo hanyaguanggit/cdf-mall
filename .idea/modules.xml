@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/cdf-api/cdf-api.iml" filepath="$PROJECT_DIR$/cdf-api/cdf-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdf-mall.iml" filepath="$PROJECT_DIR$/cdf-mall.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdf-mbg/cdf-mbg.iml" filepath="$PROJECT_DIR$/cdf-mbg/cdf-mbg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cdf-securityauth/cdf-securityauth.iml" filepath="$PROJECT_DIR$/cdf-securityauth/cdf-securityauth.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdf-user/cdf-user.iml" filepath="$PROJECT_DIR$/cdf-user/cdf-user.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
     </modules>

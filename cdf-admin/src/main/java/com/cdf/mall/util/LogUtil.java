@@ -8,6 +8,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.AbstractQueue;
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @Description 日志工具类
@@ -98,9 +103,47 @@ public class LogUtil<T> {
         System.out.println("字符串右边位数不够补0-->>"+newStr);
     }
 
-    public static void main(String[] args) {
-        leftFillZero(123,"10");
+    /**
+     * {@link Queue}
+     * java 队列相关
+     */
+    public static void queue(){
+        //阻塞队列
+        Queue queue2 = new ArrayBlockingQueue(3);
+
+        //把 e 加到 BlockingQueue 里，如果 BlockQueue 没有空间，则调用此方法的线程被阻断直到 BlockingQueue 里面有空间再继续.
+        Queue queue = new ArrayDeque();
+        queue.add("aa");
+        queue.add("bb");
+        queue.add("cc");
+
+        System.out.println("原队列-->"+queue);
+
+        //检索但不删除队列的头部，于peek（）不同之处在于为空时抛出异常。
+        Object a = queue.element();
+        //更安全的插入一个元素，于add不同在于当超出队列容量时插入会失败。
+        queue.offer("dd");
+        System.out.println("安全的插入了dd元素-->"+queue);
+        //检索但不删除队列的头，如果返回是null说明队列为空。
+        Object o = queue.peek();
+        System.out.println("检索但不删除队列的头，如果返回是null说明队列为空"+queue);
+
+        //检索并移除该队列的头部
+        queue.poll();
+        System.out.println("检索并移除该队列的头部后---->"+queue);
+        //检索并移除该队列的头部，如何这个队列为空，会抛出异常。
+        //queue.remove();
+
+        queue.poll();
+        System.out.println("再次检索并移除该队列的头部后---->"+queue);
+        queue.clear();
+        System.out.println("清除队列-->"+queue);
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+       // leftFillZero(123,"10");
        // complete0Number3(123,10);
-        rightFillZero("qwe",6);
+       // rightFillZero("qwe",6);
+        queue();
     }
 }

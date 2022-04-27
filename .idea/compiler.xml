@@ -11,6 +11,7 @@
         <module name="common" />
         <module name="cdf-user" />
         <module name="cdf-mbg" />
+        <module name="cdf-securityauth" />
         <module name="cdf-api" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
       <module name="cdf-api" target="1.8" />
       <module name="cdf-mall" target="1.8" />
       <module name="cdf-mbg" target="1.8" />
+      <module name="cdf-securityauth" target="1.8" />
       <module name="cdf-user" target="1.8" />
       <module name="common" target="1.8" />
     </bytecodeTargetLevel>
@@ -28,6 +30,7 @@
       <module name="cdf-admin" options="-parameters" />
       <module name="cdf-api" options="-parameters" />
       <module name="cdf-mbg" options="-parameters" />
+      <module name="cdf-securityauth" options="-parameters" />
       <module name="cdf-user" options="-parameters" />
       <module name="common" options="-parameters" />
     </option>

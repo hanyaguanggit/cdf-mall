@@ -20,6 +20,7 @@
         <module>cdf-mbg</module>
         <module>cdf-user</module>
         <module>common</module>
+        <module>cdf-securityauth</module>
     </modules>
     <properties>
         <docker.maven.plugin.version>1.1.0</docker.maven.plugin.version>
@@ -192,6 +193,14 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+
 
     </dependencies>
 
