@@ -44,7 +44,7 @@
         <cdf-admin.version>1.0.1-SNAPSHOT</cdf-admin.version>
         <cdf-user.version>1.0.1-SNAPSHOT</cdf-user.version>
         <autoconfigure.version>2.0.3.RELEASE</autoconfigure.version>
-
+        <jjwt.version>0.9.0</jjwt.version>
         <pagehelper-starter.version>1.2.10</pagehelper-starter.version>
         <pagehelper.version>5.1.8</pagehelper.version>
         <google-guava.version>18.0</google-guava.version>
@@ -201,6 +201,18 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--jwt支持-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
+        <!--http通讯的支持-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
 
     </dependencies>
 
@@ -280,6 +292,14 @@
                 <artifactId>guava</artifactId>
                 <!--<version>18.0</version>-->
                 <version>${google-guava.version}</version>
+            </dependency>
+
+
+            <!--JWT(Json Web Token)登录支持-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

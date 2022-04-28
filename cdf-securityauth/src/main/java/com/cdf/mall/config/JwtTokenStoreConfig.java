@@ -14,24 +14,32 @@ import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
 
 import java.security.KeyPair;
 
+/**
+ * jwt授权令牌token的存储配置
+ */
+
 @Configuration
 @EnableConfigurationProperties(value = JwtCAProperties.class)
 public class JwtTokenStoreConfig {
     @Autowired
     private RedisConnectionFactory connectionFactory;
 
+    @Autowired
+    private JwtCAProperties jwtCAProperties;
+
+    //使用内存对象jwtTokenStore保存jwtToken
     @Bean
     public TokenStore jwtTokenStore(){
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
+
+    //使用redis保存token
     //    @Bean
 //    public TokenStore redisTokenStore(){
 //
 //        RedisTokenStore redis = new RedisTokenStore(connectionFactory);
 //        return redis;
 //    }
-    @Autowired
-    private JwtCAProperties jwtCAProperties;
 
     @Bean
     public CdfTokenEnhancer cdfTokenEnhancer() {
@@ -45,9 +53,8 @@ public class JwtTokenStoreConfig {
         //配置JWT使用的秘钥
         accessTokenConverter.setSigningKey("KJHUhjjJYgYUllVbXhKDHXhkSyHjlNiVkYzWTBac1Yxkjhuad");
 
-
-        //配置JWT使用的秘钥 非对称加密
-        // accessTokenConverter.setKeyPair(keyPair());
+        //配置JWT使用的秘钥 非对称加密（私钥和公钥加密方式）
+         accessTokenConverter.setKeyPair(keyPair());
         return accessTokenConverter;
     }
 

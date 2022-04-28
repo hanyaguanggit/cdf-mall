@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ygl
+ * desc:授权服务器配置
+ * @author hyg
  */
 @Configuration
 @EnableAuthorizationServer
@@ -50,6 +51,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManagerBean;
 
+    @Autowired
+    private CdfTokenEnhancer cdfTokenEnhancer;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -57,8 +60,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         clients.withClientDetails(clientDetailsService());
 
     }
-    @Autowired
-    private CdfTokenEnhancer cdfTokenEnhancer;
+
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -85,13 +87,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * 授权服务器安全配置
      * @param security
      * @throws Exception
+     * 用来配置令牌端点(Token Endpoint)的安全约束
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         //第三方客户端校验token需要带入 clientId 和clientSecret来校验
         security.checkTokenAccess("isAuthenticated()")
+                // 开启/oauth/check_token验证端口认证权限访问
                 .tokenKeyAccess("isAuthenticated()");//来获取我们的tokenKey需要带入clientId,clientSecret
-        
+
         //允许表单认证
         security.allowFormAuthenticationForClients();
     }

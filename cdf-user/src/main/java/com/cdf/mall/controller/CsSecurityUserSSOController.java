@@ -4,21 +4,15 @@ import com.cdf.mall.common.TokenInfo;
 import com.cdf.mall.commons.CommonResult;
 import com.cdf.mall.dto.req.ReqSecurityUserVo;
 import com.cdf.mall.module.CsSecurityUserModule;
-import com.cdf.mall.util.VerifyCodeImgUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.OutputStream;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * description: 登录注册获取验证码等

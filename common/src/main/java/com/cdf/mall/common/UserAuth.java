@@ -8,12 +8,12 @@ public class UserAuth {
     /**
      * 会员服务第三方客户端(这个客户端在认证服务器配置好的oauth_client_details)
      */
-    public static final String CLIENT_ID ="cdfmember";
+    public static final String CLIENT_ID ="cdf-user";
 
     /**
      * 会员服务第三方客户端密码(这个客户端在认证服务器配置好的oauth_client_details)
      */
-    public static final String CLIENT_SECRET ="123123";
+    public static final String CLIENT_SECRET ="123456";
 
     /**
      * 认证服务器登陆地址

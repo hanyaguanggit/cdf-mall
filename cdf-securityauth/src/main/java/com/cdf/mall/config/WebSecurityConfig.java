@@ -14,7 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * ygl
+ * 自定义Web授权配置（授权前置，配置符合自己系统的规则）
+ * hyg
  */
 @Configuration
 @Slf4j
@@ -70,12 +71,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-
+    /**
+     * description: 安全过滤器链配置，自定义安全访问策略
+     * @Param:
+     * @Return: 
+     * @Author: hanyaguang
+     * @Date: 2022/4/28 11:48
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().permitAll()
                 .and().authorizeRequests()
-                .antMatchers("/oauth/**").permitAll()
+                .antMatchers("/oauth/**").permitAll()// 批准带/oauth的路由
+                //.antMatchers("/**").permitAll()// 批准带/oauth的路由
                 .anyRequest()
                 .authenticated()
                 .and().logout().permitAll()
