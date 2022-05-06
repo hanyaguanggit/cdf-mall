@@ -22,7 +22,7 @@ import java.util.Map;
  * @Date: 2021/9/19 18:49
  */
 @RestController
-@RequestMapping("/admin/sso")
+@RequestMapping("/user/sso")
 @Slf4j
 public class CsSecurityUserSSOController {
     @Value("${cdf.jwt.tokenHeader}")
@@ -38,30 +38,17 @@ public class CsSecurityUserSSOController {
     @PostMapping(value = "/login")
     @ResponseBody
     public CommonResult login(@Valid @RequestBody ReqSecurityUserVo request, Errors errors) {
-        //登录前进行校验
-       /* CommonResult<Boolean> validUser = csSecurityUserModule.validSecurityUser(request);
-        if(validUser.getData() == false){
-            return validUser;
-        }*/
+
         TokenInfo tokenInfo = csSecurityUserModule.login(request.getLoginName(), request.getPassword());
         if (tokenInfo == null) {
             log.info("用户名或密码错误 tokenInfo"+tokenInfo);
             return CommonResult.validateFailed("用户名或密码错误");
         }
-        //更新登录时间
-       // String memberId = tokenInfo.getAdditionalInfo().get("memberId");
-       /* csSecurityUserModule.updateLastLoginTime(memberId);
 
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", tokenInfo.getAccess_token());
-        tokenMap.put("tokenHead", tokenHead);
-        tokenMap.put("refreshToken",tokenInfo.getRefresh_token());
-        tokenMap.put("memberId",tokenInfo.getAdditionalInfo().get("memberId"));
-        tokenMap.put("loginName",request.getLoginName());*/
         return CommonResult.success(null);
     }
     /**
-     * ygl
+     * hyg
      * 后台用户securityuser信息
      * @param request
      * @return

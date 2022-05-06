@@ -1,9 +1,9 @@
 package com.cdf.mall.service;
-
 import com.cdf.mall.commons.CommonResult;
 import com.cdf.mall.domain.MemberDetails;
 import com.cdf.mall.dto.req.ReqSecurityUserVo;
 import com.cdf.mall.dto.resp.CsSecurityUserRespVo;
+import com.cdf.mall.entity.CsSecurityUser;
 import com.cdf.mall.feign.user.CsAdminSecurityUserFeignService;
 import com.cdf.mall.util.security.AesUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,24 +14,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
 /**
- *
- *hanyaguang
+ *hyg
  */
 @Component
 @Slf4j
 public class CdfUserDetailService implements UserDetailsService {
 
-   // @Autowired
-   // private CsAdminSecurityUserFeignService csAdminSecurityUserFeignService;
+    @Autowired
+    private CsAdminSecurityUserFeignService csAdminSecurityUserFeignService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        
+        MemberDetails memberDetails = null;
         // TODO  查数据库获取用户信息   rpc调用
         // 加载用户信息
         if (!StringUtils.isNotEmpty(username)) {
@@ -39,50 +39,37 @@ public class CdfUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不能为空");
         }
 
-        CsSecurityUserRespVo CsMember = getByUsername(username);
+        CsSecurityUser securityUser = getByUsername(username);
         
-        if (null == CsMember) {
+        if (null == securityUser) {
             log.warn("根据用户名没有查询到对应的用户信息:{}", username);
         }
         String password= null;
-       /* try {
-            password = AesUtils.decrypt("",CsMember.getPassword());
+        try {
+            password = AesUtils.decrypt("",securityUser.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
-        String passwordnew=passwordEncoder.encode(password);
-        CsMember.setPassword(passwordnew);
-        //CsMember.setUsername(CsMember.getUsername());
-        log.info("根据用户名:{}获取用户登陆信息:{}", username, CsMember);
+        }
+        if(password != null){
+            String passwordnew=passwordEncoder.encode(password);
+            securityUser.setPassword(passwordnew);
+            //CsMember.setUsername(CsMember.getUsername());
+            log.info("根据用户名:{}获取用户登陆信息:{}", username, securityUser);
 
-        // 会员信息的封装 implements UserDetails
-        MemberDetails memberDetails = new MemberDetails(CsMember);
-        
+            // 会员信息的封装 implements UserDetails
+            memberDetails = new MemberDetails(securityUser);
+        }
         return memberDetails;
     }
 
-
-    /**
-     * description: 通过登录名获取用户
-     * @Param:
-     * @Return:
-     * @Author: hanyaguang
-     * @Date: 2022/4/27 17:04
-     */
-    public CsSecurityUserRespVo getByUsername(String loginName) {
+    
+    public CsSecurityUser getByUsername(String loginName) {
         ReqSecurityUserVo reqSecurityUserVo= new ReqSecurityUserVo();
         reqSecurityUserVo.setLoginName(loginName);
         // fegin获取会员信息
         //远程调用会员查询接口   /oauth/token
         long startTime = System.currentTimeMillis();
-        CommonResult<CsSecurityUserRespVo> csSecurityUserRespVo = null;//csAdminSecurityUserFeignService.getSecurityAdminUser(reqSecurityUserVo);
-
-       //-----------------test----------------------
-        CsSecurityUserRespVo user = new CsSecurityUserRespVo();
-        user.setUsername("测试用户");
-        user.setPassword("123");
-        csSecurityUserRespVo.setData(user);
-        //------------------------------------------
+        CommonResult<CsSecurityUser> csSecurityUserRespVo =csAdminSecurityUserFeignService.getSecurityAdminUser(reqSecurityUserVo);
         long endTime = System.currentTimeMillis();
         log.info("远程调用会员查询接口 {}",(int) (endTime - startTime));
         

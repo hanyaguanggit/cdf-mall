@@ -3,6 +3,7 @@ package com.cdf.mall.feign.user;
 import com.cdf.mall.commons.CommonResult;
 import com.cdf.mall.dto.req.ReqSecurityUserVo;
 import com.cdf.mall.dto.resp.CsSecurityUserRespVo;
+import com.cdf.mall.entity.CsSecurityUser;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class CsAdminSecurityUserServiceFallbackFactory implements FallbackFactor
         return new CsAdminSecurityUserFeignService() {
 
             @Override
-            public CommonResult<CsSecurityUserRespVo> getSecurityAdminUser(ReqSecurityUserVo csMemberReqVo) {
+            public CommonResult<CsSecurityUser> getSecurityAdminUser(ReqSecurityUserVo csMemberReqVo) {
                 return null;
             }
         };

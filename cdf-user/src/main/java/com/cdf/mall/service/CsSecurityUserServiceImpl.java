@@ -1,7 +1,7 @@
 package com.cdf.mall.service;
 
 import com.cdf.mall.common.TokenInfo;
-import com.cdf.mall.common.UserAuth;
+import com.cdf.mall.constant.UserAuth;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class CsSecurityUserServiceImpl implements CsSecurityUserService {
                 log.error("根据用户名  response 信息:{}" + response);
                 return null;
             }
-            TokenInfo tokenInfo = response.getBody();
+                TokenInfo tokenInfo = response.getBody();
             return tokenInfo;
         } catch (Exception e) {
             log.error("根据用户名:{}登陆异常:{}", username, e.getMessage());

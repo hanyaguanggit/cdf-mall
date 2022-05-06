@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/cdf-admin/cdf-admin.iml" filepath="$PROJECT_DIR$/cdf-admin/cdf-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdf-api/cdf-api.iml" filepath="$PROJECT_DIR$/cdf-api/cdf-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cdf-gateway/cdf-gateway.iml" filepath="$PROJECT_DIR$/cdf-gateway/cdf-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdf-mall.iml" filepath="$PROJECT_DIR$/cdf-mall.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdf-mbg/cdf-mbg.iml" filepath="$PROJECT_DIR$/cdf-mbg/cdf-mbg.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdf-securityauth/cdf-securityauth.iml" filepath="$PROJECT_DIR$/cdf-securityauth/cdf-securityauth.iml" />

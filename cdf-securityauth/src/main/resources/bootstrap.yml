@@ -4,7 +4,7 @@ spring:
   application:
     name: cdf-securityauth
   profiles:
-    active: public
+    active: dev
 
 #  cloud:
 #    nacos:

@@ -21,6 +21,7 @@
         <module>cdf-user</module>
         <module>common</module>
         <module>cdf-securityauth</module>
+        <module>cdf-gateway</module>
     </modules>
     <properties>
         <docker.maven.plugin.version>1.1.0</docker.maven.plugin.version>

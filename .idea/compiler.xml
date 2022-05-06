@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cdf-admin" />
+        <module name="cdf-gateway" />
         <module name="common" />
         <module name="cdf-user" />
         <module name="cdf-mbg" />
@@ -18,6 +19,7 @@
     <bytecodeTargetLevel>
       <module name="cdf-admin" target="1.8" />
       <module name="cdf-api" target="1.8" />
+      <module name="cdf-gateway" target="1.8" />
       <module name="cdf-mall" target="1.8" />
       <module name="cdf-mbg" target="1.8" />
       <module name="cdf-securityauth" target="1.8" />
@@ -29,6 +31,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cdf-admin" options="-parameters" />
       <module name="cdf-api" options="-parameters" />
+      <module name="cdf-gateway" options="-parameters" />
       <module name="cdf-mbg" options="-parameters" />
       <module name="cdf-securityauth" options="-parameters" />
       <module name="cdf-user" options="-parameters" />

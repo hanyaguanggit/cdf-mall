@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @Slf4j
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
@@ -47,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public boolean matches(CharSequence charSequence, String s) {
                 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+               // s = bCryptPasswordEncoder.encode(charSequence);
                 if (!bCryptPasswordEncoder.matches(charSequence, s)) {
                     log.info("Authentication failed: password error");
                     return false;
@@ -65,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/assets/**", "/css/**", "/images/**");
+        web.ignoring().antMatchers( "/css/**", "/images/**");
     }
 
 
@@ -83,11 +86,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().permitAll()
                 .and().authorizeRequests()
                 .antMatchers("/oauth/**").permitAll()// 批准带/oauth的路由
-                //.antMatchers("/**").permitAll()// 批准带/oauth的路由
+                .antMatchers("/login.html").permitAll()// 批准所有的路由
                 .anyRequest()
-                .authenticated()
+                .authenticated()  //任何请求都需要被认证，必须要登录后被访问
                 .and().logout().permitAll()
-                .and().csrf().disable();
+                .and().csrf().disable();//关闭csrf，否则页面无法访问
     }
     
     

@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/cdf-admin/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cdf-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cdf-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cdf-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cdf-mbg/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cdf-securityauth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cdf-securityauth/src/main/resources" charset="UTF-8" />

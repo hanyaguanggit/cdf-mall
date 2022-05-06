@@ -17,8 +17,8 @@ import redis.clients.jedis.JedisPoolConfig;
  * @Description redis多数据源配置类
  * @Author hanyaguang
  * @Date 2022/2/14 16:51
- * @Version 1.0
- */
+ * @Version 1.0*/
+
 @Configuration
 public class RedisTemplateConfig {
 

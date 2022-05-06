@@ -1,10 +1,9 @@
 package com.cdf.mall.domain;
 
-import com.cdf.mall.dto.resp.CsSecurityUserRespVo;
+import com.cdf.mall.entity.CsSecurityUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -12,10 +11,10 @@ import java.util.Collection;
  *hyg
  */
 public class MemberDetails implements UserDetails {
-    private CsSecurityUserRespVo csSecurityUserRespVo;
+    private CsSecurityUser csSecurityUser;
     
-    public MemberDetails(CsSecurityUserRespVo CsMember) {
-        this.csSecurityUserRespVo = CsMember;
+    public MemberDetails(CsSecurityUser CsMember) {
+        this.csSecurityUser = CsMember;
     }
     
     @Override
@@ -27,14 +26,14 @@ public class MemberDetails implements UserDetails {
     
     @Override
     public String getPassword() {
-        String pwd = csSecurityUserRespVo.getPassword();
+        String pwd = csSecurityUser.getPassword();
         return pwd;
     }
     
     @Override
     public String getUsername() {
 
-        return csSecurityUserRespVo.getUsername();
+        return csSecurityUser.getUsername();
     }
     
     @Override
@@ -54,10 +53,10 @@ public class MemberDetails implements UserDetails {
     
     @Override
     public boolean isEnabled() {
-        return csSecurityUserRespVo.getEnabled()==true;
+        return csSecurityUser.getEnabled()==true;
     }
     
-    public CsSecurityUserRespVo getCsMember() {
-        return csSecurityUserRespVo;
+    public CsSecurityUser getCsMember() {
+        return csSecurityUser;
     }
 }

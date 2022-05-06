@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdf.mall.mapper.master.CsSecurityUserMapper">
+  <resultMap id="BaseResultMap" type="com.cdf.mall.model.master.CsSecurityUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="expiryDate" jdbcType="TIMESTAMP" property="expirydate" />
+    <result column="locked" jdbcType="BIT" property="locked" />
+    <result column="credentialExpiryDate" jdbcType="TIMESTAMP" property="credentialexpirydate" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="avatar" jdbcType="INTEGER" property="avatar" />
+    <result column="loginName" jdbcType="VARCHAR" property="loginname" />
+    <result column="mobilePhoneNo" jdbcType="VARCHAR" property="mobilephoneno" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="deleted" jdbcType="SMALLINT" property="deleted" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="lastModifiedUser" jdbcType="INTEGER" property="lastmodifieduser" />
+    <result column="lastModifiedTime" jdbcType="TIMESTAMP" property="lastmodifiedtime" />
+    <result column="shopId" jdbcType="INTEGER" property="shopid" />
+    <result column="lastLoginIp" jdbcType="VARCHAR" property="lastloginip" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, userName, password, expiryDate, locked, credentialExpiryDate, enabled, avatar, 
+    loginName, mobilePhoneNo, email, createDate, deleted, creator, lastModifiedUser, 
+    lastModifiedTime, shopId, lastLoginIp, lastLoginTime
+  </sql>
+  <select id="selectByExample" parameterType="com.cdf.mall.model.master.CsSecurityUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from cs_security_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cs_security_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cs_security_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cdf.mall.model.master.CsSecurityUserExample">
+    delete from cs_security_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cdf.mall.model.master.CsSecurityUser" useGeneratedKeys="true">
+    insert into cs_security_user (userName, password, expiryDate, 
+      locked, credentialExpiryDate, enabled, 
+      avatar, loginName, mobilePhoneNo, 
+      email, createDate, deleted, 
+      creator, lastModifiedUser, lastModifiedTime, 
+      shopId, lastLoginIp, lastLoginTime
+      )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{expirydate,jdbcType=TIMESTAMP}, 
+      #{locked,jdbcType=BIT}, #{credentialexpirydate,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT}, 
+      #{avatar,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{mobilephoneno,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{deleted,jdbcType=SMALLINT}, 
+      #{creator,jdbcType=INTEGER}, #{lastmodifieduser,jdbcType=INTEGER}, #{lastmodifiedtime,jdbcType=TIMESTAMP}, 
+      #{shopid,jdbcType=INTEGER}, #{lastloginip,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cdf.mall.model.master.CsSecurityUser" useGeneratedKeys="true">
+    insert into cs_security_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="expirydate != null">
+        expiryDate,
+      </if>
+      <if test="locked != null">
+        locked,
+      </if>
+      <if test="credentialexpirydate != null">
+        credentialExpiryDate,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="loginname != null">
+        loginName,
+      </if>
+      <if test="mobilephoneno != null">
+        mobilePhoneNo,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="lastmodifieduser != null">
+        lastModifiedUser,
+      </if>
+      <if test="lastmodifiedtime != null">
+        lastModifiedTime,
+      </if>
+      <if test="shopid != null">
+        shopId,
+      </if>
+      <if test="lastloginip != null">
+        lastLoginIp,
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="expirydate != null">
+        #{expirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="locked != null">
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="credentialexpirydate != null">
+        #{credentialexpirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null">
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephoneno != null">
+        #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="lastmodifieduser != null">
+        #{lastmodifieduser,jdbcType=INTEGER},
+      </if>
+      <if test="lastmodifiedtime != null">
+        #{lastmodifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="lastloginip != null">
+        #{lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cdf.mall.model.master.CsSecurityUserExample" resultType="java.lang.Long">
+    select count(*) from cs_security_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cs_security_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expirydate != null">
+        expiryDate = #{record.expirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.locked != null">
+        locked = #{record.locked,jdbcType=BIT},
+      </if>
+      <if test="record.credentialexpirydate != null">
+        credentialExpiryDate = #{record.credentialexpirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginname != null">
+        loginName = #{record.loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephoneno != null">
+        mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null">
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastmodifieduser != null">
+        lastModifiedUser = #{record.lastmodifieduser,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastmodifiedtime != null">
+        lastModifiedTime = #{record.lastmodifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shopid != null">
+        shopId = #{record.shopid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastloginip != null">
+        lastLoginIp = #{record.lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastlogintime != null">
+        lastLoginTime = #{record.lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cs_security_user
+    set id = #{record.id,jdbcType=INTEGER},
+      userName = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      expiryDate = #{record.expirydate,jdbcType=TIMESTAMP},
+      locked = #{record.locked,jdbcType=BIT},
+      credentialExpiryDate = #{record.credentialexpirydate,jdbcType=TIMESTAMP},
+      enabled = #{record.enabled,jdbcType=BIT},
+      avatar = #{record.avatar,jdbcType=INTEGER},
+      loginName = #{record.loginname,jdbcType=VARCHAR},
+      mobilePhoneNo = #{record.mobilephoneno,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=SMALLINT},
+      creator = #{record.creator,jdbcType=INTEGER},
+      lastModifiedUser = #{record.lastmodifieduser,jdbcType=INTEGER},
+      lastModifiedTime = #{record.lastmodifiedtime,jdbcType=TIMESTAMP},
+      shopId = #{record.shopid,jdbcType=INTEGER},
+      lastLoginIp = #{record.lastloginip,jdbcType=VARCHAR},
+      lastLoginTime = #{record.lastlogintime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdf.mall.model.master.CsSecurityUser">
+    update cs_security_user
+    <set>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="expirydate != null">
+        expiryDate = #{expirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="credentialexpirydate != null">
+        credentialExpiryDate = #{credentialexpirydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null">
+        loginName = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephoneno != null">
+        mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="lastmodifieduser != null">
+        lastModifiedUser = #{lastmodifieduser,jdbcType=INTEGER},
+      </if>
+      <if test="lastmodifiedtime != null">
+        lastModifiedTime = #{lastmodifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopid != null">
+        shopId = #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="lastloginip != null">
+        lastLoginIp = #{lastloginip,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cdf.mall.model.master.CsSecurityUser">
+    update cs_security_user
+    set userName = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      expiryDate = #{expirydate,jdbcType=TIMESTAMP},
+      locked = #{locked,jdbcType=BIT},
+      credentialExpiryDate = #{credentialexpirydate,jdbcType=TIMESTAMP},
+      enabled = #{enabled,jdbcType=BIT},
+      avatar = #{avatar,jdbcType=INTEGER},
+      loginName = #{loginname,jdbcType=VARCHAR},
+      mobilePhoneNo = #{mobilephoneno,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=SMALLINT},
+      creator = #{creator,jdbcType=INTEGER},
+      lastModifiedUser = #{lastmodifieduser,jdbcType=INTEGER},
+      lastModifiedTime = #{lastmodifiedtime,jdbcType=TIMESTAMP},
+      shopId = #{shopid,jdbcType=INTEGER},
+      lastLoginIp = #{lastloginip,jdbcType=VARCHAR},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--<select id="selectUserListByRoleNameOrUserId" resultType="com.cdf.mall.model.master.CsSecurityUserExtension" >
+    SELECT csu.id userId,csu.userName userName,csu.loginName loginName,csu.mobilePhoneNo mobilePhoneNo,csu.email email,csu.expiryDate expiryDate,csu.createDate,csu.enabled enabled,csu.locked locked,csr.id roleId,csr.`name` as roleName
+    FROM  cs_security_user csu
+    LEFT JOIN cs_security_user_role csur ON csu.id = csur.userid
+    LEFT JOIN cs_security_role csr ON csur.roleid = csr.id
+    where shopId = #{shopId,jdbcType=INTEGER}
+    <if test="roleName != null">
+      and csr.`name` like #{roleName,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null">
+      and csu.id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>-->
+
+</mapper>

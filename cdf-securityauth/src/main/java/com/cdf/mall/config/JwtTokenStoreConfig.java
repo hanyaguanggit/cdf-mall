@@ -1,5 +1,6 @@
 package com.cdf.mall.config;
 
+import com.alibaba.fastjson.JSON;
 import com.cdf.mall.enhancer.CdfTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -34,7 +35,7 @@ public class JwtTokenStoreConfig {
     }
 
     //使用redis保存token
-    //    @Bean
+    //@Bean
 //    public TokenStore redisTokenStore(){
 //
 //        RedisTokenStore redis = new RedisTokenStore(connectionFactory);
@@ -50,9 +51,9 @@ public class JwtTokenStoreConfig {
     public JwtAccessTokenConverter jwtAccessTokenConverter(){
         JwtAccessTokenConverter accessTokenConverter = new
                 JwtAccessTokenConverter();
-        //配置JWT使用的秘钥
-        accessTokenConverter.setSigningKey("KJHUhjjJYgYUllVbXhKDHXhkSyHjlNiVkYzWTBac1Yxkjhuad");
-
+        //配置JWT使用的秘钥(相当于加密中的加盐)
+        //accessTokenConverter.setSigningKey("KJHUhjjJYgYUllVbXhKDHXhkSyHjlNiVkYzWTBac1Yxkjhuad");
+        accessTokenConverter.setSigningKey("123456");
         //配置JWT使用的秘钥 非对称加密（私钥和公钥加密方式）
          accessTokenConverter.setKeyPair(keyPair());
         return accessTokenConverter;
@@ -61,6 +62,9 @@ public class JwtTokenStoreConfig {
     @Bean
     public KeyPair keyPair() {
         KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(jwtCAProperties.getKeyPairName()), jwtCAProperties.getKeyPairSecret().toCharArray());
-        return keyStoreKeyFactory.getKeyPair(jwtCAProperties.getKeyPairAlias(), jwtCAProperties.getKeyPairStoreSecret().toCharArray());
+        KeyPair keyPair = keyStoreKeyFactory.getKeyPair(jwtCAProperties.getKeyPairAlias(), jwtCAProperties.getKeyPairStoreSecret().toCharArray());
+        System.out.println("密钥对=="+ JSON.toJSONString(keyPair));
+        System.out.println("公钥=="+JSON.toJSONString(keyPair.getPublic()));
+        return keyPair;
     }
 }

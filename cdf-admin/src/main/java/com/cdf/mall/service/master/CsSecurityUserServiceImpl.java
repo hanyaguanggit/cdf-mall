@@ -1,16 +1,25 @@
-package com.cdf.mall.service;
+package com.cdf.mall.service.master;
 
 import com.cdf.mall.common.TokenInfo;
-import com.cdf.mall.common.UserAuth;
-import io.micrometer.core.instrument.util.StringUtils;
+import com.cdf.mall.constant.UserAuth;
+import com.cdf.mall.mapper.master.CsSecurityUserMapper;
+import com.cdf.mall.model.master.CsSecurityUser;
+import com.cdf.mall.model.master.CsSecurityUserExample;
+import com.cdf.mall.util.RedisOrderOpsUtil;
+import com.github.pagehelper.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+
 
 @Service
 @Slf4j
@@ -20,15 +29,30 @@ public class CsSecurityUserServiceImpl implements CsSecurityUserService {
     @Autowired
     private RestTemplate restTemplate;
 
-   /* @Value("${redis.key.prefix.authCode}")
+   // @Value("${redis.key.prefix.authCode}")
     private String REDIS_KEY_PREFIX_AUTH_CODE;
 
-    @Value("${redis.key.expire.authCode}")
-    private Long AUTH_CODE_EXPIRE_SECONDS;*/
+   // @Value("${redis.key.expire.authCode}")
+    private Long AUTH_CODE_EXPIRE_SECONDS;
 
-    @Value("${cdf.jwt.tokenHead}")
+    @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Autowired
+    private RedisOrderOpsUtil redisOpsUtil;
 
+    @Autowired
+    private CsSecurityUserMapper csSecurityUserMapper;
+
+
+    @Override
+    public CsSecurityUser loadUserByUsername(CsSecurityUserExample csSecurityUserExample) {
+        List<CsSecurityUser> csSecurityUserList = csSecurityUserMapper.selectByExample(csSecurityUserExample);
+        if(!CollectionUtils.isEmpty(csSecurityUserList)){
+            return csSecurityUserList.get(0);
+        }else{
+            return null;
+        }
+    }
 
     @Override
     /**
@@ -124,7 +148,7 @@ public class CsSecurityUserServiceImpl implements CsSecurityUserService {
 
         log.info("RefreshToken的值为:{}",token);
 
-        if(StringUtils.isBlank(token)) {
+        if(StringUtil.isEmpty(token)) {
             log.warn("刷新令牌不能为空:{}",token);
             return null;
         }
@@ -153,7 +177,14 @@ public class CsSecurityUserServiceImpl implements CsSecurityUserService {
     }
 
 
-
+    //对输入的验证码进行校验
+    private boolean verifyAuthCode(String authCode, String telephone){
+        if(StringUtils.isEmpty(authCode)){
+            return false;
+        }
+        String realAuthCode = redisOpsUtil.get(REDIS_KEY_PREFIX_AUTH_CODE + telephone);
+        return authCode.equals(realAuthCode);
+    }
 
 
 }

@@ -10,10 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 //禁用redis自动配置
 @SpringBootApplication(exclude = {RedisAutoConfiguration.class})
-//@SpringBootApplication
-@EnableDiscoveryClient
 @EnableFeignClients
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class CdfAdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(CdfAdminApplication.class, args);
