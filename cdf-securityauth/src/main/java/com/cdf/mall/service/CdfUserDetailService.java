@@ -51,7 +51,7 @@ public class CdfUserDetailService implements UserDetailsService {
             e.printStackTrace();
         }
         if(password != null){
-            String passwordnew=passwordEncoder.encode(password);
+            String passwordnew = passwordEncoder.encode(password);
             securityUser.setPassword(passwordnew);
             //CsMember.setUsername(CsMember.getUsername());
             log.info("根据用户名:{}获取用户登陆信息:{}", username, securityUser);

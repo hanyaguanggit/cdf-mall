@@ -1,0 +1,167 @@
+server:
+  port: 6063
+spring:
+  application:
+    name: cdf-mq # 应用名称
+  profiles:
+    active: dev # 指定环境，默认加载 default 环境
+  cloud:
+    # 配置 Consul 注册中心
+    consul:
+      # 注册中心的访问地址
+      host: 127.0.0.1
+      port: 8500
+      # 服务发现相关配置
+      discovery:
+        register: true                                # 是否需要注册
+        instance-id: ${spring.application.name}       # 注册实例 id（必须唯一）
+        service-name: ${spring.application.name}      # 服务名称
+        port: ${server.port}                          # 服务端口
+        prefer-ip-address: true                       # 是否使用 ip 地址注册
+        ip-address: ${spring.cloud.client.ip-address} # 服务请求 ip
+        enabled: true
+      config:
+        # 是否启用配置中心，默认值 true 开启
+        enabled: true
+        # 设置配置的基本文件夹，默认值 config 可以理解为配置文件所在的最外层文件夹
+        prefix: config
+        # 设置应用的文件夹名称，默认值 application 一般建议设置为微服务应用名称
+        default-context: serviceMq
+        # 配置环境分隔符，默认值 "," 和 default-context 配置项搭配
+        # 例如应用 serviceUser 分别有环境 default、dev、test、prod
+        profile-separator: '-'
+        # 指定配置格式为 yaml
+        format: YAML
+        # Consul 的 Key/Values 中的 Key，Value 对应整个配置文件
+        data-key: serviceMqConfig
+        # 以上配置可以理解为：加载 config/service-mq/ 文件夹下 Key 为 service-mq-config 的 Value 对应的配置信息
+        watch:
+          # 是否开启自动刷新，默认值 true 开启
+          enabled: true
+          # 刷新频率，单位：毫秒，默认值 1000
+          delay: 1000
+  redis:
+    host: 127.0.0.1 # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6380 # Redis服务器连接端口
+    password: 123456 # Redis服务器连接密码（默认为空）
+    overtime: 30000 # redis保存缓存时间 50分钟
+    jedis:
+      pool:
+        max-active: 1000 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: 2000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 500 # 连接池中的最大空闲连接
+        min-idle: 300 # 连接池中的最小空闲连接
+      timeout: 3000ms # 连接超时时间（毫秒）
+    #kafka:
+    #  ###########【Kafka集群】###########
+    #  bootstrap-servers: ckafka-6ejog3ok.ap-guangzhou.ckafka.tencentcloudmq.com:6006
+    #  ###########【初始化生产者配置】###########
+    #  producer:
+    #    retries: 0 # 重试次数
+    #    acks: 1 # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+    #    batch-size: 16384 # 批量大小
+    #    ms: 0 # 提交延时
+    #    # 当生产端积累的消息达到batch-size或接收到消息linger.ms后,生产者就会将消息提交给kafka
+    #    # linger.ms为0表示每接收到一条消息就提交给kafka,这时候batch-size其实就没用了    ​
+    #    buffer-memory: 33554432 # 生产端缓冲区大小
+    #    # Kafka提供的序列化和反序列化类
+    #    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    #    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    #  # 自定义分区器
+    #  # spring.kafka.producer.properties.partitioner.class=com.felix.kafka.producer.CustomizePartitioner
+    #  ###########【初始化消费者配置】###########
+    #  consumer:
+    ##    group-id: defaultConsumerGroup # 默认的消费组ID
+    #    group-id: GID_dhyorder_test
+    #    enable-auto-commit: true # 是否自动提交offset
+    #    # 当kafka中没有初始offset或offset超出范围时将自动重置offset
+    #    # earliest:重置为分区中最小的offset;
+    #    # latest:重置为分区中最新的offset(消费分区中新产生的数据);
+    #    # none:只要有一个分区不存在已提交的offset,就抛出异常;
+    #
+    #    auto-offset-reset: latest
+    #    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer # Kafka提供的序列化和反序列化类
+    #    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    #mq:
+    #  kafka:
+    #    enabled: true
+    #
+    #  ## 消息队列配置
+    #  producer:
+    #  ## 订单队列
+    #    synorderevent:
+    #      queue: cdfOrderEvent_dev
+    #
+    #  consumer:
+    #    ## 事件队列
+    ##   modelevent:
+    #    ##      queue: ecsModelEvent_dev
+    #    ##      groupid: GID_model_dev
+    #    ##      number: 100
+    #    # 订单同步数据队列
+    #    synorderevent:
+    #      queue: cdfOrderEvent_dev
+    #      groupid: GID_dhyorder_test
+  kafka:
+    enabled: true
+    bootstrap-servers: 10.197.18.6:9092
+    producer: # 生产者
+      retries: 3 # 设置大于0的值，则客户端会将发送失败的记录重新发送
+      batch-size: 16384
+      buffer-memory: 33554432
+      ##服务端主节点写成功即返回 Response。性能中等、丢数据风险中等、主节点宕机可能导致数据丢失。
+      acks: 1
+
+
+      # 指定消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: default-group
+      enable-auto-commit: false
+      ##表示自动把offset设为最初的offset。建议设置成 latest，而不要设置成 earliest，避免因位点非法时从头开始消费，从而造成大量重复。
+      auto-offset-reset: latest
+      max-poll-records: 100
+      properties:
+        max:
+          poll:
+            interval:
+              ms: 700000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+    listener:
+      # 当每一条记录被消费者监听器（ListenerConsumer）处理之后提交
+      # RECORD
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后提交
+      # BATCH
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，距离上次提交时间大于TIME时提交
+      # TIME
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，被处理record数量大于等于COUNT时提交
+      # COUNT
+      # TIME |　COUNT　有一个条件满足时提交
+      # COUNT_TIME
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后, 手动调用Acknowledgment.acknowledge()后提交
+      # MANUAL
+      # 手动调用Acknowledgment.acknowledge()后立即提交
+      # MANUAL_IMMEDIATE
+      ack-mode: MANUAL
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cdfdb1?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: cdf123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+# 设置feign客户端超时时间（OpenFeign默认支持Ribbon）
+ribbon:
+  ReadTimeout: 1000      # 建立连接所用时间，适用于网络状况正常的情况下，两端连接所用的时间
+  ConnectTimeout: 2000   # 建立连接后，从服务器读取到的可用资源所用的时间
+feign:
+  sentinel:
+    enabled: true
+  client:
+    config:
+      default:
+        loggerLevel: full
+        readTimeout: 3000
+        connectTimeout: 3000

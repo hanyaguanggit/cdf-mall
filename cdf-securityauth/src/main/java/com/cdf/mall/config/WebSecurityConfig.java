@@ -49,7 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public boolean matches(CharSequence charSequence, String s) {
                 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-               // s = bCryptPasswordEncoder.encode(charSequence);
                 if (!bCryptPasswordEncoder.matches(charSequence, s)) {
                     log.info("Authentication failed: password error");
                     return false;

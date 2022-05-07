@@ -16,6 +16,7 @@ import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
 import java.security.KeyPair;
 
 /**
+ * hyg
  * jwt授权令牌token的存储配置
  */
 
