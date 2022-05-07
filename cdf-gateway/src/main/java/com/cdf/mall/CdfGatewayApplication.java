@@ -1,4 +1,4 @@
-package com.cdf.mall.cdfgateway;
+package com.cdf.mall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

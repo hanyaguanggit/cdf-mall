@@ -1,3 +1,5 @@
+server:
+  port: 6061
 spring:
   application:
     name: cdf-admin # 应用名称
@@ -38,5 +40,113 @@ spring:
           enabled: true
           # 刷新频率，单位：毫秒，默认值 1000
           delay: 1000
+  datasource:
+    #配置hikari连接池
+    hikari:
+      connection-timeout: 10000
+      connection-init-sql: set names utf8
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-While-Idle: true
+      test-on-return: false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,log4j,config
+    #动态数据源配置
+    dynamic:
+      #主数据源 #数据源cdfdb1
+      master:
+        url: jdbc:mysql://127.0.0.1:3306/cdfdb1?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: cdf123
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      #数据源cdfdb2
+      second:
+        url: jdbc:mysql://127.0.0.1:3306/cdfdb2?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: cdf123
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://127.0.0.1:3306/cdfdb1?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    # username: root
+    # password: cdf123
+    # mongodb副本集链接配置
+    data:
+      mongodb:
+        primary:
+          uri: 127.0.0.1:27017
+          database: test
+          username: root
+          password: '123456'
+        secondary:
+          uri: 127.0.0.1:27017
+          database: test2
+          username: hanyaguang
+          password: '123456'
+    redis:
+      order:
+        host: 127.0.0.1 # Redis服务器地址
+        database: 0 # Redis数据库索引（默认为0）
+        port: 6380 # Redis服务器连接端口
+        password: 123456 # Redis服务器连接密码（默认为空）
+        overtime: 30000 # redis保存缓存时间 50分钟
+      # overtime: 1234
+      user:
+        host: 127.0.0.1 # Redis服务器地址
+        database: 0 # Redis数据库索引（默认为0）
+        port: 6380 # Redis服务器连接端口
+        password: 123456 # Redis服务器连接密码（默认为空）
+        overtime: 30000 # redis保存缓存时间 50分钟
+      # overtime: 1234
+      jedis:
+        pool:
+          max-active: 1000 # 连接池最大连接数（使用负值表示没有限制）
+          max-wait: 2000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-idle: 500 # 连接池中的最大空闲连接
+          min-idle: 300 # 连接池中的最小空闲连接
+        timeout: 3000ms # 连接超时时间（毫秒）
+  #mybatis:
+  #  mapper-locations:
+  #    - classpath*:com/**/mapper/*.xml
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  jwt:
+    keyPairName: jwt.jks
+    keyPairAlias: jwt
+    keyPairSecret: 123456
+    keyPairStoreSecret: 123456
+    tokenHeader: Authorization #JWT存储的请求头
+    secret: 123456 #JWT加解密使用的密钥
+    expiration: 70000 #JWT的超期限时间(60*60*24)
+    tokenHead: bearer  #JWT负载中拿到开头
+
+  feign:
+    sentinel:
+      enabled: true
+    client:
+      config:
+        default:
+          loggerLevel: full
+          readTimeout: 3000
+          connectTimeout: 3000
+    httpclient:
+      enabled: true
+  http-pool:
+    max-total: 2000
+    default-max-per-route: 2000
+    connect-timeout: 2000
+    connection-request-timeout: 2500
+    socket-timeout: 3000
+    validate-after-inactivity: 2000
 
 

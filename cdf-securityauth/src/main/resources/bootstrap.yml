@@ -1,3 +1,5 @@
+server:
+  port: 9998
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -50,7 +52,59 @@ spring:
           enabled: true
           # 刷新频率，单位：毫秒，默认值 1000
           delay: 1000
-
+  datasource:
+    #url: jdbc:mysql://10.196.88.10:3306/cdf_front?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    #username: root
+    #password: ntces@CDF
+    #本地数据库
+    # url: jdbc:mysql://10.190.60.4:3306/cdfdb1?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    # username: root
+    # password: cdf123
+    url: jdbc:mysql://127.0.0.1:3306/cdfdb1?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: cdf123
+  druid:
+    initial-size: 20 #连接池初始化大小
+    min-idle: 20 #最小空闲连接数
+    max-active: 1000 #最大连接数
+    max-wait: 60000
+    web-stat-filter:
+    exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+    stat-view-servlet: #访问监控网页的登录用户名和密码
+    login-username: druid
+    login-password: druid
+    validation-query: SELECT 1 FROM DUAL
+  redis:
+    host: 127.0.0.1 # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6380 # Redis服务器连接端口
+    password: 123456 # Redis服务器连接密码（默认为空）
+    overtime: 30000 # redis保存缓存时间 50分钟
+    # overtime: 1234
+  jedis:
+    pool:
+    max-active: 1000 # 连接池最大连接数（使用负值表示没有限制）
+    max-wait: 2000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    max-idle: 500 # 连接池中的最大空闲连接
+    min-idle: 300 # 连接池中的最小空闲连接
+    timeout: 3000ms # 连接超时时间（毫秒）
+cdf:
+  jwt:
+    keyPairName: jwt.jks
+    keyPairAlias: jwt
+    keyPairSecret: 123456
+    keyPairStoreSecret: 123456
+    tokenHeader: Authorization #JWT存储的请求头
+    secret: 123456 #JWT加解密使用的密钥
+    expiration: 70000 #JWT的超期限时间(60*60*24)
+    tokenHead: bearer  #JWT负载中拿到开头
+http-pool:
+  max-total: 2000
+  default-max-per-route: 2000
+  connect-timeout: 2000
+  connection-request-timeout: 2500
+  socket-timeout: 3000
+  validate-after-inactivity: 2000
 # 设置feign客户端超时时间（OpenFeign默认支持Ribbon）
 ribbon:
   ReadTimeout: 1000      # 建立连接所用时间，适用于网络状况正常的情况下，两端连接所用的时间
