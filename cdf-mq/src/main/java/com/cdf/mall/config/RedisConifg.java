@@ -9,14 +9,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.Config;*/
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisNode;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *hyg
@@ -31,44 +38,63 @@ public class RedisConifg {
     @Value("${spring.redis.password}")
     private String password;
     @Value("${spring.redis.jedis.pool.min-idle}")
-    private int  min_idle;
+    private int  min_idle;//连接池中的最小空闲连接
     @Value("${spring.redis.jedis.pool.max-idle}")
-    private int max_idle;
+    private int max_idle;//连接池中的最大空闲连接
     @Value("${spring.redis.jedis.pool.max-wait}")
-    private int max_wait;
+    private int max_wait;//连接池最大阻塞等待时间
     @Value("${spring.redis.jedis.pool.max-active}")
-    private int max_active;
+    private int max_active;//最大连接数
 
-    @Bean
+    @Value("${spring.redis.cluster.nodes}")
+    private String node;
+
+    @Value("${spring.redis.cluster.timeout}")
+    private int timeout;
+
+   /* @Bean
     public JedisPoolConfig jedisPoolConfig(){
         JedisPoolConfig config=new JedisPoolConfig();
         config.setMaxTotal(max_active);
-        config.setMaxIdle(max_wait);
+        config.setMaxIdle(max_idle);
         config.setMaxWaitMillis(max_wait);
         config.setMinIdle(min_idle);
         //其他属性可以自行添加
         return config;
-    }
+    }*/
 
 
+   @Bean
+   public RedisStandaloneConfiguration standaloneConfiguration(){
+       RedisStandaloneConfiguration redisStandalone = new RedisStandaloneConfiguration();
+       redisStandalone.setHostName(host);
+       redisStandalone.setPort(port);
+       redisStandalone.setPassword(password);
+       return redisStandalone;
+   }
 
-        @Bean
+      /*  @Bean
         public JedisConnectionFactory jedisConnectionFactory() {
 
-            // config.setTestOnBorrow(TEST_ON_BORROW);  
+            RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
+            HashSet<RedisNode> nodes = new HashSet<>();
+           // String[] serverArray = redisProperties.getClusterNodes().split(",");
+            String[] serverArray = node.split(",");
+            for(String server:serverArray){
+                String[] ipPortPair = server.split(":");
+                RedisNode redisNode = new RedisNode(ipPortPair[0].trim(), Integer.valueOf(ipPortPair[1].trim()));
+                nodes.add(redisNode);
+            }
+            redisClusterConfiguration.setClusterNodes(nodes);
+            JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisClusterConfiguration, jedisPoolConfig());
+            return jedisConnectionFactory;
+        }*/
 
-//           RedisStandaloneConfiguration rconfig = new RedisStandaloneConfiguration();
-//            rconfig.setHostName(host);
-//            rconfig.setPort(port);
-//            rconfig.setPassword(password);
-
-            JedisConnectionFactory connectionFactory = new JedisConnectionFactory(jedisPoolConfig());
-            connectionFactory.setHostName(host);
-            connectionFactory.setPort(port);
-            connectionFactory.setPassword(password);
-            return connectionFactory;
-        }
-
+    @Bean
+    public JedisConnectionFactory jedisConnectionFactory() {
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(standaloneConfiguration());
+        return jedisConnectionFactory;
+    }
         @Bean
         @Primary
         public RedisTemplate<String, Object> redisTemplate() {

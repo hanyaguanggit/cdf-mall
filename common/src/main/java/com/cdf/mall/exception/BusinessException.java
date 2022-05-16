@@ -5,7 +5,7 @@ import com.cdf.mall.common.IErrorCode;
 import lombok.Data;
 
 /**
- * ygl
+ * hyg
  */
 @Data
 public class BusinessException extends Exception {

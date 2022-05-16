@@ -10,6 +10,7 @@
         <module name="cdf-admin" />
         <module name="cdf-gateway" />
         <module name="common" />
+        <module name="cdf-order" />
         <module name="cdf-user" />
         <module name="cdf-mbg" />
         <module name="cdf-securityauth" />
@@ -24,9 +25,11 @@
       <module name="cdf-mall" target="1.8" />
       <module name="cdf-mbg" target="1.8" />
       <module name="cdf-mq" target="1.8" />
+      <module name="cdf-order" target="1.8" />
       <module name="cdf-securityauth" target="1.8" />
       <module name="cdf-user" target="1.8" />
       <module name="common" target="1.8" />
+      <module name="tcc-transaction-spring" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -36,9 +39,11 @@
       <module name="cdf-gateway" options="-parameters" />
       <module name="cdf-mbg" options="-parameters" />
       <module name="cdf-mq" options="-parameters" />
+      <module name="cdf-order" options="-parameters" />
       <module name="cdf-securityauth" options="-parameters" />
       <module name="cdf-user" options="-parameters" />
       <module name="common" options="-parameters" />
+      <module name="tcc-transaction-spring" options="-parameters" />
     </option>
   </component>
 </project>
