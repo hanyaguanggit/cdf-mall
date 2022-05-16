@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,7 +27,7 @@ import java.io.IOException;
 public class ControllerAdvice {
     private static final Logger log = LoggerFactory.getLogger(ControllerAdvice.class);
 
-    @Resource
+    @Autowired
     private Tracer tracer;
 
     public ControllerAdvice() {
