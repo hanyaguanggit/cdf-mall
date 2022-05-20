@@ -166,3 +166,17 @@ feign:
         loggerLevel: full
         readTimeout: 3000
         connectTimeout: 3000
+#rocketmq相关
+rocketmq:
+  name-server: 192.168.100.70:9876
+  producer:
+    group: my-group
+    #默认3000 太小会报RemotingTooMuchRequestException: sendDefaultImpl call timeout错误
+    send-message-timeout: 10000
+    customized-trace-topic: mytopic
+#  client:
+#    logUseSlf4j: true
+service:
+  error:
+    advice:
+      enabled: true

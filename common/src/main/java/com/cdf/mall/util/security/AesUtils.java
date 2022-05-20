@@ -11,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES加密
  * Created by gaocl on 16-4-18.
+ * BASE64Decoder是内部专用API, BASE64Encoder是内部专用API，可能会在未来发行版中删除
  */
 public class AesUtils {
 
@@ -135,6 +136,9 @@ public class AesUtils {
 //        }
 //        return b;
 //    }
+
+
+
 
     public static String encrypt(String key, String str) throws Exception {
         if (StringUtils.isEmpty(str)) {

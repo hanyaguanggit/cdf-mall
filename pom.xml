@@ -45,7 +45,6 @@
         <cdf-api.version>1.0.1-SNAPSHOT</cdf-api.version>
         <cdf-admin.version>1.0.1-SNAPSHOT</cdf-admin.version>
         <cdf-user.version>1.0.1-SNAPSHOT</cdf-user.version>
-        <!--<autoconfigure.version>2.0.3.RELEASE</autoconfigure.version>-->
         <jjwt.version>0.9.0</jjwt.version>
         <pagehelper-starter.version>1.2.10</pagehelper-starter.version>
         <pagehelper.version>5.1.8</pagehelper.version>
@@ -100,10 +99,7 @@
             <scope>provided</scope>
            <!-- <optional>true</optional>-->
         </dependency>
-       <!-- <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>-->
+
 
         <dependency>
             <groupId>mysql</groupId>
@@ -144,11 +140,6 @@
             <type>jar</type>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.data</groupId>-->
-<!--            <artifactId>spring-data-redis</artifactId>-->
-<!--        </dependency>-->
-        <!--jedis结束-->
 
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -175,11 +166,18 @@
             <version>4.5.6</version>
         </dependency>
 
-        <!--引入分布式链路追踪系统 埋点库-->
+
+        <!--引入链路追踪-->
         <dependency>
-            <groupId>io.zipkin.brave</groupId>
-            <artifactId>brave</artifactId>
-            <version>5.12.3</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+
+        <!--引入重试机制-->
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>1.2.4.RELEASE</version>
         </dependency>
 
     </dependencies>
