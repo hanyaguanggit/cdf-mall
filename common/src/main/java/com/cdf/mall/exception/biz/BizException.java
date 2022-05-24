@@ -1,7 +1,6 @@
 package com.cdf.mall.exception.biz;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cdf.mall.common.CommonErrorCode;
 import com.cdf.mall.common.IErrorCodes;
 
 /**
