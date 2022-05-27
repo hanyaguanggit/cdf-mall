@@ -10,6 +10,7 @@
         <module name="cdf-admin" />
         <module name="cdf-gateway" />
         <module name="common" />
+        <module name="cdf-zookeeper" />
         <module name="cdf-user" />
         <module name="cdf-mbg" />
         <module name="cdf-securityauth" />
@@ -26,6 +27,7 @@
       <module name="cdf-mq" target="1.8" />
       <module name="cdf-securityauth" target="1.8" />
       <module name="cdf-user" target="1.8" />
+      <module name="cdf-zookeeper" target="1.8" />
       <module name="common" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -38,6 +40,7 @@
       <module name="cdf-mq" options="-parameters" />
       <module name="cdf-securityauth" options="-parameters" />
       <module name="cdf-user" options="-parameters" />
+      <module name="cdf-zookeeper" options="-parameters" />
       <module name="common" options="-parameters" />
     </option>
   </component>

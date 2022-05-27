@@ -1,4 +1,4 @@
-package com.cdf.mall.exception.feign;
+package com.cdf.mall.feign;
 
 import com.alibaba.fastjson.JSON;
 import com.cdf.mall.exception.biz.BizException;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import feign.Util;
 /**
- * @Description feign调用异常处理
+ * @Description feign调用异常处理配置类
  * @Author hanyaguang
  * @Date 2022/5/16 15:40
  * @Version 1.0

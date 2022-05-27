@@ -1,10 +1,5 @@
 package com.cdf.mall.util;
 
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 /**
  * @Description 测试
@@ -12,16 +7,41 @@ import java.math.BigDecimal;
  * @Date 2022/5/11 9:42
  * @Version 1.0
  */
-///@Component
 public class Test {
-    public static void main(String[] args) {
-        BigDecimal couponAmount = new BigDecimal(0);
-        couponAmount = new BigDecimal("12.324");
-        System.out.println(couponAmount);
-    }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void listener(){
-        System.out.println("监听到程序启动完成。");
-    }
+        public volatile int inc = 0;
+
+        public void increase() {
+            inc++;
+        }
+
+        public static void main(String[] args) {
+
+            final Test test = new Test();
+
+            for(int i=0;i<10;i++){
+
+                new Thread(){
+
+                    public void run() {
+
+                        for(int j=0;j<1000;j++)
+
+                            test.increase();
+
+                    };
+
+                }.start();
+
+            }
+
+            while(Thread.activeCount()>1)  //保证前面的线程都执行完
+
+                Thread.yield();
+
+            System.out.println(test.inc);
+
+        }
+
+
 }

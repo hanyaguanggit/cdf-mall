@@ -1,10 +1,10 @@
-package com.cdf.mall.exception.feign;
+package com.cdf.mall.feign;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
 
 /**
- * @Description TODO
+ * @Description 自定义feign处理配置类前置
  * @Author hanyaguang
  * @Date 2022/5/16 15:36
  * @Version 1.0

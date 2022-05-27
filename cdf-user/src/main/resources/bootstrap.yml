@@ -38,4 +38,9 @@ spring:
           enabled: true
           # 刷新频率，单位：毫秒，默认值 1000
           delay: 1000
+service:
+  error:
+    feign:
+      enabled: true
+
 
