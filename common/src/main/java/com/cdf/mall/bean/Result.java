@@ -1,6 +1,11 @@
 package com.cdf.mall.bean;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * @Description TODO
@@ -8,6 +13,8 @@ import com.alibaba.fastjson.JSONObject;
  * @Date 2022/5/16 15:53
  * @Version 1.0
  */
+@Data
+@EqualsAndHashCode
 public class Result {
     private int code;
     private String message;
@@ -48,4 +55,6 @@ public class Result {
     public void setAddition(final JSONObject addition) {
         this.addition = addition;
     }
+
+
 }
